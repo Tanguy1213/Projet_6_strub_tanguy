@@ -140,3 +140,4 @@ boutonHotel.addEventListener("click", function () {
     const categorieId = '3';
     filtrerEtAfficherElements(categorieId);
 });
+

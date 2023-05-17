@@ -58,6 +58,11 @@ header {
 	justify-content: space-between;
 	margin: 50px 0
 }
+a{
+	text-decoration: none;
+	color: inherit;
+}
+
 section {
 	margin: 50px 0
 }
@@ -161,47 +166,56 @@ li:hover {
 .gallery img {
 	width: 100%;
 }
-#contact {
+#contact, #login{
 	width: 50%;
 	margin: auto;
 }
-#contact > * {
+#contact > *, #login > * {
 	text-align: center;
 
 }
-#contact h2{
+#contact h2, #login h2{
 	margin-bottom: 20px;
 }
-#contact form {
+#contact form, #login form {
 	text-align: left;
 	margin-top:30px;
 	display: flex;
 	flex-direction: column;
 }
 
-#contact input {
+#contact input, #login input{
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-#contact label {
+#contact label, #login label{
 	margin: 2em 0 1em 0;
 }
 #contact textarea {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-
-input[type="submit"]{
+#login a p{
+	text-decoration: underline;
+	text-align: center;
+}
+#login input[type="submit"], #contact input[type="submit"]{
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
 	background-color: #1D6154;
 	margin : 2em auto ;
 	width: 180px;
+	height: 36px;
 	text-align: center;
-	border-radius: 60px ;
+	border-radius: 60px;
+}
+.showMdp{
+	position: absolute;
+	top: 383px;
+	right: 506px;
 }
 
 footer nav ul {
