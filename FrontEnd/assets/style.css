@@ -31,6 +31,9 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
 }
+html {
+	scroll-behavior: smooth;
+}
 ol, ul {
 	list-style: none;
 }
@@ -61,6 +64,8 @@ header {
 a{
 	text-decoration: none;
 	color: inherit;
+	cursor: pointer;
+	scroll-behavior: smooth;
 }
 
 section {
@@ -134,7 +139,7 @@ li:hover {
 	display: flex;
 	justify-content: center;
 	gap : 1em;
-
+	margin-bottom: 2em;
 }
 .filtres button{
 	border-radius: 60px;
@@ -211,6 +216,7 @@ li:hover {
 	height: 36px;
 	text-align: center;
 	border-radius: 60px;
+	cursor: pointer;
 }
 .showMdp{
 	position: absolute;
