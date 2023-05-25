@@ -56,7 +56,7 @@ body {
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 }
-header {
+header section{
 	display: flex;
 	justify-content: space-between;
 	margin: 50px 0
@@ -219,14 +219,20 @@ li:hover {
 	cursor: pointer;
 }
 .showMdp{
-	position: absolute;
-	top: 383px;
-	right: 913px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
-
+#showMdp input{
+	height: 10px;
+}
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
 	margin: 2em
+}
+
+.bold{
+	font-weight: 600;
 }
 

@@ -12,15 +12,17 @@
 </head>
 <body>
     <header>
+		<section>
         <a href="index.html"><h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1></a>
         <nav>
             <ul>
-                <li>projets</li>
-                <li>contact</li>
-                <li>login</li>
+                <li><a href=".#portfolio">projets</a></li>
+				<li><a href=".#contact">contact</a></li>
+                <li class="bold">login</li>
                 <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
             </ul>
         </nav>
+		</section>
     </header>
 <main>
     <section id="login">
@@ -30,13 +32,17 @@
 			<input type="email" name="email" id="email" required>
 			<label for="mdp">Mot de passe</label>
 			<input type="password" id="mdp" name="mdp" required>
-            <input type="submit" value="Se connecter">
+			<div class="showMdp">
+				<input type="checkbox" id="showMdp" onclick="showPassWord()">
+				<p> Afficher mot de passe</p>
+			</div>
+            <input type="submit" id="btn-submit" value="Se connecter">
+			
             <a href="#"><p>Mot de passe oublié</p></a>
 		</form>
+		
 	</section>
-    <div class="showMdp">
-        <input type="checkbox" onclick="showPassWord()"> Afficher
-    </div>
+    
 </main>
 <footer>
 	<nav>
@@ -45,6 +51,6 @@
 		</ul>
 	</nav>
 </footer>
-<script src="passwordScript.js"></script>
+<script src="loginScript.js"></script>
 </body>
 </html>

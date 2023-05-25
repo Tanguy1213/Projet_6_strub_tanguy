@@ -1,44 +1,4 @@
 
-//Bouton filtre objets
-// const boutonObjets = document.querySelector(".btn-filtre-objets");
-
-// boutonObjets.addEventListener("click", function(){
-//     const categorieId = '1'; 
-
-//     // Récupérer les éléments correspondant à la catégorie spécifiée
-//     const elementsFiltresObjet = Array.from(document.querySelectorAll('[data-id]')).filter(element => {
-//         return element.getAttribute('data-id') === categorieId;
-//     });
-
-//     // Vider la galerie actuelle
-//     gallery.innerHTML = '';
-
-//     // Ajouter les éléments filtrés à la galerie
-//     elementsFiltresObjet.forEach(element => {
-//         gallery.appendChild(element);
-//     });
-// });
-
-//Bouton filtre appartements
-// const boutonAppartements = document.querySelector(".btn-filtre-appartements");
-
-// boutonAppartements.addEventListener("click", function(){
-//     const categorieId = '2'; 
-
-//     // Récupérer les éléments correspondant à la catégorie spécifiée
-//     const elementsFiltresObjet = Array.from(document.querySelectorAll('[data-id]')).filter(element => {
-//         return element.getAttribute('data-id') === categorieId;
-//     });
-
-//     // Vider la galerie actuelle
-//     gallery.innerHTML = '';
-
-//     // Ajouter les éléments filtrés à la galerie
-//     elementsFiltresObjet.forEach(element => {
-//         gallery.appendChild(element);
-//     });
-// });
-
 const gallery = document.getElementById('gallery');
 let elementsOriginaux = [];
 
@@ -141,3 +101,20 @@ boutonHotel.addEventListener("click", function () {
     filtrerEtAfficherElements(categorieId);
 });
 
+// Changement du text login en logout lorsque l'utilsateur est connecté et vis versa
+const loginElement = document.getElementById('logout');
+
+if (localStorage.getItem('token')) {
+    loginElement.textContent = 'logout';
+} else {
+    loginElement.textContent = 'login';
+};
+
+loginElement.addEventListener('click', () => {
+    if (localStorage.getItem('token')) {
+        localStorage.removeItem('token');
+        loginElement.textContent = 'Login';
+    }
+});
+
+const loginBanner = document.getElementById('loginBanner');
