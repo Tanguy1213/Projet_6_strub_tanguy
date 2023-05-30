@@ -101,20 +101,44 @@ boutonHotel.addEventListener("click", function () {
     filtrerEtAfficherElements(categorieId);
 });
 
+// Changement de la couleur des boutons de filtres quand séléctionnés
+function changeColor(btn) {
+    var buttons = document.getElementsByClassName('btn-filtre');
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove("btn-selected");
+    }
+    btn.classList.add("btn-selected");
+}
+
 // Changement du text login en logout lorsque l'utilsateur est connecté et vis versa
 const loginElement = document.getElementById('logout');
+const editBanner = document.getElementById('loginBanner');
+const btnModif = document.getElementsByClassName('btn-modifier');
 
 if (localStorage.getItem('token')) {
     loginElement.textContent = 'logout';
+    editBanner.style.display = 'flex';
+    // Afficher les boutons de modification
+    for (var i = 0; i < btnModif.length; i++) {
+        btnModif[i].style.display = 'inline-block';
+    }
+
 } else {
     loginElement.textContent = 'login';
+    editBanner.style.display = 'none';
+    // Supprimer les boutons de modification
+    while (btnModif.length > 0) {
+        btnModif[0].parentNode.removeChild(btnModif[0]);
+    }
 };
 
 loginElement.addEventListener('click', () => {
     if (localStorage.getItem('token')) {
         localStorage.removeItem('token');
         loginElement.textContent = 'Login';
+        // Supprimer les boutons de modification lors de la déconnexion
+        while (btnModif.length > 0) {
+            btnModif[0].parentNode.removeChild(btnModif[0]);
+        }
     }
 });
-
-const loginBanner = document.getElementById('loginBanner');

@@ -9,11 +9,13 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
+	<script src="https://kit.fontawesome.com/7fcd0d31b1.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <header>
 	<div id="loginBanner">
-		<p>TEST</p>
+		<a href="#" class="btn-edition"><i class="fa-regular fa-pen-to-square"></i><span> Mode édition</span></a>
+		<a href="#" class="btn-publier">publier les changements</a>
 	</div>
 	<section>
 		<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
@@ -31,6 +33,8 @@
 	<section id="introduction">
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="">
+			<br>
+			<a href="#" class="btn-modifier"><i class="fa-regular fa-pen-to-square"></i> Modifier</a>
 		</figure>
 		<article>
 			<h2>Designer d'espace</h2>
@@ -40,12 +44,15 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
+		<div class="modification">
+			<h2>Mes Projets</h2>
+			<a href="#" class="btn-modifier"><i class="fa-regular fa-pen-to-square"></i> Modifier</a>
+		</div>
 		<div class="filtres">
-			<button class="btn-filtre-tous">Tous</button>
-			<button class="btn-filtre-objets">Objets</button>
-			<button class="btn-filtre-appartements">Appartements</button>
-			<button class="btn-filtre-hoteletrestaurants">Hôtels & restaurants</button>
+			<button class="btn-filtre-tous btn-filtre" onclick="changeColor(this)">Tous</button>
+			<button class="btn-filtre-objets btn-filtre" onclick="changeColor(this)">Objets</button>
+			<button class="btn-filtre-appartements btn-filtre" onclick="changeColor(this)">Appartements</button>
+			<button class="btn-filtre-hoteletrestaurants btn-filtre" onclick="changeColor(this)">Hôtels & restaurants</button>
 		</div>
 		<br>
 		<div id="gallery" class="gallery">
