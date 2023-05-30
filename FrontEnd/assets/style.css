@@ -297,4 +297,7 @@ footer nav ul {
 	font-size:18px;
 	line-height: 16px;
 	text-align: center;
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
 }

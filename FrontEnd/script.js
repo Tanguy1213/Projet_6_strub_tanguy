@@ -110,10 +110,11 @@ function changeColor(btn) {
     btn.classList.add("btn-selected");
 }
 
-// Changement du text login en logout lorsque l'utilsateur est connecté et vis versa
+// Changement du text login en logout lorsque l'utilsateur est connecté et vis versa + afficher/cacher banières, boutons filtres, bouton de modif
 const loginElement = document.getElementById('logout');
 const editBanner = document.getElementById('loginBanner');
 const btnModif = document.getElementsByClassName('btn-modifier');
+const btnFiltres = document.getElementsByClassName('btn-filtre');
 
 if (localStorage.getItem('token')) {
     loginElement.textContent = 'logout';
@@ -121,6 +122,10 @@ if (localStorage.getItem('token')) {
     // Afficher les boutons de modification
     for (var i = 0; i < btnModif.length; i++) {
         btnModif[i].style.display = 'inline-block';
+    }
+    // Supprimer les filtres si connecté
+    while (btnFiltres.length > 0) {
+        btnFiltres[0].parentNode.removeChild(btnFiltres[0]);
     }
 
 } else {
