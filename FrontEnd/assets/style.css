@@ -3,19 +3,87 @@
    License: none (public domain)
 */
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -23,46 +91,69 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
 	display: block;
 }
+
 body {
 	line-height: 1;
 }
+
 html {
 	scroll-behavior: smooth;
 }
-ol, ul {
+
+ol,
+ul {
 	list-style: none;
 }
-blockquote, q {
+
+blockquote,
+q {
 	quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
 	content: '';
 	content: none;
 }
+
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
 /** end reset css**/
 body {
 	max-width: 1140px;
-	margin:auto;
-	font-family: 'Work Sans' ;
+	margin: auto;
+	font-family: 'Work Sans';
 	font-size: 14px;
-	background-color:#FFFEF8;
+	background-color: #FFFEF8;
 }
-header section{
+
+header section {
 	display: flex;
 	justify-content: space-between;
 	margin: 50px 0
 }
-a{
+
+a {
 	text-decoration: none;
 	color: inherit;
 	cursor: pointer;
@@ -73,7 +164,7 @@ section {
 	margin: 50px 0
 }
 
-h1{
+h1 {
 	display: flex;
 	flex-direction: column;
 	font-family: 'Syne';
@@ -82,25 +173,27 @@ h1{
 	color: #B1663C
 }
 
-h1 > span {
+h1>span {
 	font-family: 'Work Sans';
-	font-size:10px;
+	font-size: 10px;
 	letter-spacing: 0.1em;
-;
+	;
 }
 
-h2{
+h2 {
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 30px;
 	color: #1D6154
 }
+
 nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
 
 }
+
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
@@ -109,14 +202,17 @@ nav li {
 li:hover {
 	color: #B1663C;
 }
+
 #introduction {
 	display: flex;
 	align-items: center;
 	gap: 72px;
 }
+
 #introduction figure {
 	flex: 1
 }
+
 #introduction img {
 	display: block;
 	margin: auto;
@@ -126,6 +222,7 @@ li:hover {
 #introduction article {
 	flex: 1
 }
+
 #introduction h2 {
 	margin-bottom: 1em;
 }
@@ -133,11 +230,13 @@ li:hover {
 #introduction p {
 	margin-bottom: 0.5em;
 }
+
 #portfolio h2 {
 	text-align: center;
-	
+
 }
-#portfolio .modification{
+
+#portfolio .modification {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -145,13 +244,15 @@ li:hover {
 	margin-bottom: 3rem;
 	gap: 31px;
 }
-.filtres{
+
+.filtres {
 	display: flex;
 	justify-content: center;
-	gap : 1em;
+	gap: 1em;
 	margin-bottom: 2em;
 }
-.btn-filtre{
+
+.btn-filtre {
 	border-radius: 60px;
 	border: 1px solid #1D6154;
 	font-family: 'Syne';
@@ -164,11 +265,13 @@ li:hover {
 	height: 37px;
 	min-width: 100px;
 }
-.filtres button:hover{
+
+.filtres button:hover {
 	background-color: #1D6154;
 	color: white;
 	cursor: pointer;
 }
+
 .btn-selected {
 	background-color: #1D6154;
 	color: white;
@@ -185,58 +288,86 @@ li:hover {
 .gallery img {
 	width: 100%;
 }
-#contact, #login{
+
+.modal img {
+	height: 100%;
+	width: 78.12px;
+}
+
+.modal figure {
+	width: fit-content;
+	height: fit-content;
+}
+
+#contact,
+#login {
 	width: 50%;
 	margin: auto;
 }
-#contact > *, #login > * {
+
+#contact>*,
+#login>* {
 	text-align: center;
 
 }
-#contact h2, #login h2{
+
+#contact h2,
+#login h2 {
 	margin-bottom: 20px;
 }
-#contact form, #login form {
+
+#contact form,
+#login form {
 	text-align: left;
-	margin-top:30px;
+	margin-top: 30px;
 	display: flex;
 	flex-direction: column;
 }
 
-#contact input, #login input{
+#contact input,
+#login input {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-#contact label, #login label{
+#contact label,
+#login label {
 	margin: 2em 0 1em 0;
 }
+
 #contact textarea {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-#login a p{
+
+#login a p {
 	text-decoration: underline;
 	text-align: center;
 }
-#login input[type="submit"], #contact input[type="submit"]{
+
+#login input[type="submit"],
+#contact input[type="submit"] {
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
 	background-color: #1D6154;
-	margin : 2em auto ;
+	margin: 2em auto;
 	width: 180px;
 	height: 36px;
 	text-align: center;
 	border-radius: 60px;
 	cursor: pointer;
 }
-#login input[type="submit"]:hover, #contact input[type="submit"]:hover{
+
+#login input[type="submit"]:hover,
+#contact input[type="submit"]:hover,
+.bottom-modal button:hover {
 	background-color: #0E2F28;
 }
-.showMdp{
+
+.showMdp {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -248,10 +379,11 @@ footer nav ul {
 	margin: 2em
 }
 
-.bold{
+.bold {
 	font-weight: 600;
 }
-#loginBanner{
+
+#loginBanner {
 	width: 100%;
 	height: 59px;
 	background-color: black;
@@ -260,10 +392,12 @@ footer nav ul {
 	align-items: center;
 	gap: 20px;
 }
-#loginBanner a{
+
+#loginBanner a {
 	cursor: pointer;
 }
-.btn-edition{
+
+.btn-edition {
 	border: none;
 	background-color: black;
 	color: white;
@@ -274,7 +408,8 @@ footer nav ul {
 	line-height: 19px;
 	text-align: center;
 }
-.btn-publier{
+
+.btn-publier {
 	background: #FFFFFF;
 	border-radius: 60px;
 	height: 38px;
@@ -290,14 +425,184 @@ footer nav ul {
 	text-align: center;
 	color: #000000;
 }
-.btn-modifier{
+
+.btn-modifier {
 	font-family: 'Work Sans';
 	font-style: normal;
 	font-weight: 400;
-	font-size:18px;
+	font-size: 18px;
 	line-height: 16px;
 	text-align: center;
 	border: none;
 	background-color: transparent;
+	cursor: pointer;
+}
+
+/*MODAL*/
+.modal {
+	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.8);
+	animation: fadeIn .3s both;
+}
+
+.modal-wrapper {
+	background-color: white;
+	width: 630px;
+	height: fit-content;
+	padding: 60px 0px 48px 0px;
+	animation: slideFromTop .5s both;
+	border-radius: 10px;
+}
+
+.modal[aria-hidden="true"] {
+	animation-name: fadeOut;
+}
+
+.modal[aria-hidden="true"] .modal-wrapper {
+	animation-name: slideToBottom;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes fadeOut {
+	from {
+		opacity: 1;
+	}
+
+	to {
+		opacity: 0;
+	}
+}
+
+@keyframes slideFromTop {
+	from {
+		transform: translateY(-50px);
+	}
+
+	to {
+		transform: translateY(0px);
+	}
+}
+
+@keyframes slideToBottom {
+	from {
+		transform: translateY(0px);
+	}
+
+	to {
+		transform: translateY(50px);
+	}
+}
+
+.js-close-modal {
+	position: absolute;
+	z-index: 1;
+	border: none;
+	background-color: transparent;
+	top: 20px;
+	right: 20px;
+	font-size: 25px;
+	cursor: pointer;
+	padding: 0;
+}
+
+.js-close-modal:hover {
+	transform: scale(1.15);
+}
+
+
+#modal1 h3 {
+	font-family: 'Work Sans';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 26px;
+	line-height: 30px;
+	text-align: center;
+}
+
+.bottom-modal {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 23px;
+	height: 20%;
+	padding-top: 30px;
+}
+
+.bottom-modal button {
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	border: none;
+	width: 237px;
+	height: 36px;
+	text-align: center;
+	border-radius: 60px;
+	cursor: pointer;
+
+}
+
+.bottom-modal a {
+	font-family: 'Syne';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 17px;
+	color: #D65353;
+
+}
+
+hr {
+	width: 420px;
+}
+
+#modalGallery {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 6px;
+	width: fit-content;
+	height: 400px;
+	padding: 46px 100px 40px 100px;
+}
+
+#modalGallery figure {
+	position: relative;
+}
+
+#modalGallery figure .buttonContainer {
+	position: absolute;
+	top: 5px;
+	right: 4px;
+	width: fit-content;
+	height: fit-content;
+	display: flex;
+	gap: 3px;
+}
+
+#modalGallery figure button {
+	width: 17px;
+	height: 17px;
+	background-color: black;
+	border: none;
+	border-radius: 2px;
+	padding: 0;
 	cursor: pointer;
 }
