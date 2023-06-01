@@ -606,3 +606,13 @@ hr {
 	padding: 0;
 	cursor: pointer;
 }
+
+.trashIcon{
+	width: 9px !important;
+	height: 9px !important;
+}
+.moveIcon{
+	width: 11.12px !important;
+	height: 11.12px !important;
+	margin-top: 3px;
+}

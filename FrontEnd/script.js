@@ -193,20 +193,36 @@ const openModal = function (e) {
             imgElement.alt = works.title;
             // Création de l'élmement supprimer(poubelle)
             const buttonContainer = document.createElement('div');
-            buttonContainer.className = "buttonContainer"
+            buttonContainer.className = "buttonContainer";
+
             const trashButton = document.createElement('button');
+            trashButton.className ="js-trash-btn";
+            const trashIcon = document.createElement('img');
+            trashIcon.src="./assets/icons/VectorTrash.svg";
+            trashIcon.className = "trashIcon";
+
             const moveButton = document.createElement('button');
+            const moveIcon = document.createElement('img');
+            moveIcon.src = "./assets/icons/VectorMove.svg";
+            moveIcon.className = "moveIcon";
 
             // Ajout des éléments img à l'élément figure
             figureElement.appendChild(imgElement);
-            figureElement.appendChild(buttonContainer);
-            buttonContainer.appendChild(trashButton);
+            figureElement.appendChild(buttonContainer); 
             buttonContainer.appendChild(moveButton);
+            moveButton.appendChild(moveIcon);
+            buttonContainer.appendChild(trashButton);
+            trashButton.appendChild(trashIcon);
             // Ajout de l'élément figure à la galerie
             modalGallery.appendChild(figureElement);
         });
     }
 }
+
+
+
+
+
 
 const closeModal = function (e) {
     if (modal === null) return
