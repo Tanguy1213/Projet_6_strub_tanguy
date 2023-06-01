@@ -2,6 +2,7 @@
 const gallery = document.getElementById('gallery');
 const modalGallery = document.getElementById('modalGallery');
 let elementsOriginaux = [];
+let tokenValue = localStorage.token;
 
 //  Appel à l'API 
 fetch('http://localhost:5678/api/works')
@@ -216,33 +217,46 @@ const openModal = function (e) {
             modalGallery.appendChild(figureElement);
 
             trashButton.addEventListener('click', function() {
-                supprimerImage(figureElement);
+                /*supprimerImage(figureElement);*/
+                deleteWork(works.id)
             });
         });
     }
 }
 
-function supprimerImage(figureElement) {
+/*function supprimerImage(figureElement) {
     const categoryId = figureElement.getAttribute('data-id');
     
     // Supprimer la figure de la modal
     figureElement.remove();
+}*/
 
-    // Supprimer la figure de la galerie principale
-    supprimerElementOrigine(categoryId);
-}
-function supprimerElementOrigine(categoryId) {
-    // Rechercher et supprimer l'élément correspondant dans la galerie principale
-    const element = gallery.querySelector(`[data-id="${categoryId}"]`);
-    if (element) {
-        element.remove();
+const deleteWork = async (id) => {
+    //const deleteIcons = document.querySelectorAll('.fa-trash-can');
+    console.log(id);
+    // deleteIcons.forEach(icon => {
+    //         const workElement = event.target.closest('.imgEdit');
+    //         console.log(icon.id);
+    //         console.log('ok');
+    //         const imageElement = workElement.querySelector('img');
+    //         const imageSrc = imageElement.getAttribute('src');
+    //         const workId = workElement.dataset.workId;
 
-        // Enregistrer l'ID de l'image supprimée dans le stockage local
-        const imagesSupprimees = JSON.parse(localStorage.getItem('imagesSupprimees')) || [];
-        imagesSupprimees.push(categoryId);
-        localStorage.setItem('imagesSupprimees', JSON.stringify(imagesSupprimees));
+    const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+        method: 'DELETE',
+        headers: {
+            //accept: "application/json",
+            'Content-Type': "application/json",
+            'Authorization': `Bearer ${tokenValue}`
+        }
+    });
+    if (response.ok) {
+        //workElement.remove();
+        console.log('Supprimé');
+    } else {
+        console.error(`HTTP error! Status: ${response.status}`);
     }
-}
+};
 
 const closeModal = function (e) {
     if (modal === null) return
