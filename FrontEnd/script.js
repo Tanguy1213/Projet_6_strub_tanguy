@@ -196,7 +196,6 @@ const openModal = function (e) {
             buttonContainer.className = "buttonContainer";
 
             const trashButton = document.createElement('button');
-            trashButton.className ="js-trash-btn";
             const trashIcon = document.createElement('img');
             trashIcon.src="./assets/icons/VectorTrash.svg";
             trashIcon.className = "trashIcon";
@@ -215,14 +214,35 @@ const openModal = function (e) {
             trashButton.appendChild(trashIcon);
             // Ajout de l'élément figure à la galerie
             modalGallery.appendChild(figureElement);
+
+            trashButton.addEventListener('click', function() {
+                supprimerImage(figureElement);
+            });
         });
     }
 }
 
+function supprimerImage(figureElement) {
+    const categoryId = figureElement.getAttribute('data-id');
+    
+    // Supprimer la figure de la modal
+    figureElement.remove();
 
+    // Supprimer la figure de la galerie principale
+    supprimerElementOrigine(categoryId);
+}
+function supprimerElementOrigine(categoryId) {
+    // Rechercher et supprimer l'élément correspondant dans la galerie principale
+    const element = gallery.querySelector(`[data-id="${categoryId}"]`);
+    if (element) {
+        element.remove();
 
-
-
+        // Enregistrer l'ID de l'image supprimée dans le stockage local
+        const imagesSupprimees = JSON.parse(localStorage.getItem('imagesSupprimees')) || [];
+        imagesSupprimees.push(categoryId);
+        localStorage.setItem('imagesSupprimees', JSON.stringify(imagesSupprimees));
+    }
+}
 
 const closeModal = function (e) {
     if (modal === null) return
