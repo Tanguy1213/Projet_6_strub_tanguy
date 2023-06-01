@@ -192,66 +192,77 @@ const openModal = function (e) {
             const imgElement = document.createElement('img');
             imgElement.src = works.imageUrl;
             imgElement.alt = works.title;
-            // Création de l'élmement supprimer(poubelle)
+
+            // Création de l'élmement supprimer et move
             const buttonContainer = document.createElement('div');
             buttonContainer.className = "buttonContainer";
 
+            // Création du bouton poubelle avec son icone
             const trashButton = document.createElement('button');
             const trashIcon = document.createElement('img');
-            trashIcon.src="./assets/icons/VectorTrash.svg";
+            trashIcon.src = "./assets/icons/VectorTrash.svg";
             trashIcon.className = "trashIcon";
 
+            // Création du bouton move avec son icone
             const moveButton = document.createElement('button');
             const moveIcon = document.createElement('img');
             moveIcon.src = "./assets/icons/VectorMove.svg";
             moveIcon.className = "moveIcon";
 
-            // Ajout des éléments img à l'élément figure
-            figureElement.appendChild(imgElement);
-            figureElement.appendChild(buttonContainer); 
+            // Création du text éditer
+            const editCaption = document.createElement('p');
+            editCaption.textContent = "éditer";
+            editCaption.classList = "editerStyle";
+
+
+            // Gestion de l'highlight sur le survol du texte p
+            editCaption.addEventListener('mouseover', function () {
+                imgElement.classList.add('highlighted-blue');
+            });
+            editCaption.addEventListener('mouseout', function () {
+                imgElement.classList.remove('highlighted-blue');
+            });
+            // Gestion de l'highlight sur le survol de la poubelle
+            trashButton.addEventListener('mouseover', function () {
+                imgElement.classList.add('highlighted-red');
+            });
+            trashButton.addEventListener('mouseout', function () {
+                imgElement.classList.remove('highlighted-red');
+            });
+
+            
             buttonContainer.appendChild(moveButton);
             moveButton.appendChild(moveIcon);
+
             buttonContainer.appendChild(trashButton);
             trashButton.appendChild(trashIcon);
+            
+            // Ajout de l'img, le container de boutons et la caption à l'élément figure
+            figureElement.appendChild(imgElement);
+            figureElement.appendChild(buttonContainer);
+            figureElement.appendChild(editCaption);
+
             // Ajout de l'élément figure à la galerie
             modalGallery.appendChild(figureElement);
-
-            trashButton.addEventListener('click', function() {
-                /*supprimerImage(figureElement);*/
+            
+            //Suppression de la database au clique sur la poubelle
+            trashButton.addEventListener('click', function () {
                 deleteWork(works.id)
             });
         });
     }
 }
 
-/*function supprimerImage(figureElement) {
-    const categoryId = figureElement.getAttribute('data-id');
-    
-    // Supprimer la figure de la modal
-    figureElement.remove();
-}*/
-
 const deleteWork = async (id) => {
-    //const deleteIcons = document.querySelectorAll('.fa-trash-can');
     console.log(id);
-    // deleteIcons.forEach(icon => {
-    //         const workElement = event.target.closest('.imgEdit');
-    //         console.log(icon.id);
-    //         console.log('ok');
-    //         const imageElement = workElement.querySelector('img');
-    //         const imageSrc = imageElement.getAttribute('src');
-    //         const workId = workElement.dataset.workId;
-
     const response = await fetch(`http://localhost:5678/api/works/${id}`, {
         method: 'DELETE',
         headers: {
-            //accept: "application/json",
             'Content-Type': "application/json",
             'Authorization': `Bearer ${tokenValue}`
         }
     });
     if (response.ok) {
-        //workElement.remove();
         console.log('Supprimé');
     } else {
         console.error(`HTTP error! Status: ${response.status}`);

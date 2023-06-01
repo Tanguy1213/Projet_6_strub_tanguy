@@ -584,6 +584,7 @@ hr {
 
 #modalGallery figure {
 	position: relative;
+
 }
 
 #modalGallery figure .buttonContainer {
@@ -606,12 +607,28 @@ hr {
 	cursor: pointer;
 }
 
-.trashIcon{
+.trashIcon {
 	width: 9px !important;
 	height: 9px !important;
 }
-.moveIcon{
+
+.moveIcon {
 	width: 11.12px !important;
 	height: 11.12px !important;
 	margin-top: 3px;
+}
+.editerStyle {
+	cursor: pointer;
+	font-weight: 400;
+	font-size: 12px;
+	margin-top: 2px;
+	margin-bottom: 10px;
+	width: fit-content;
+}
+.highlighted-blue {
+	outline: 3px solid rgb(83, 83, 216);
+}
+.highlighted-red {
+	outline: 3px solid red;
+	filter: brightness(50%);
 }
