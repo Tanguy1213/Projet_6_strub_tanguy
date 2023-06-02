@@ -3,15 +3,17 @@ const gallery = document.getElementById('gallery');
 const modalGallery = document.getElementById('modalGallery');
 let elementsOriginaux = [];
 let tokenValue = localStorage.token;
+let travaux = [];
 
 //  Appel à l'API 
 fetch('http://localhost:5678/api/works')
     .then(response => response.json())
     .then(data => {
-        genererTableau(data);
+        travaux=data;
+        genererTableau();
     })
 
-function genererTableau(data) {
+function genererTableau() {
     // Vider la galerie actuelle
     gallery.innerHTML = '';
 
@@ -19,7 +21,7 @@ function genererTableau(data) {
     elementsOriginaux = [];
 
     // Parcours du tableau récupéré
-    data.forEach(works => {
+    travaux.forEach(works => {
         // Création de l'élément figure
         const figureElement = document.createElement('figure');
         figureElement.setAttribute('data-id', works.categoryId);
@@ -169,13 +171,7 @@ const openModal = function (e) {
     modal.querySelector('.js-close-modal').addEventListener('click', closeModal)
     modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
 
-    fetch('http://localhost:5678/api/works')
-        .then(response => response.json())
-        .then(data => {
-            genererTableauModal(data);
-        })
-
-    function genererTableauModal(data) {
+    function genererTableauModal() {
         // Vider la galerie actuelle
         modalGallery.innerHTML = '';
 
@@ -183,7 +179,7 @@ const openModal = function (e) {
         elementsOriginaux = [];
 
         // Parcours du tableau récupéré
-        data.forEach(works => {
+        travaux.forEach(works => {
             // Création de l'élément figure
             const figureElement = document.createElement('figure');
             figureElement.setAttribute('data-id', works.categoryId);
@@ -251,23 +247,32 @@ const openModal = function (e) {
             });
         });
     }
-}
-
-const deleteWork = async (id) => {
-    console.log(id);
-    const response = await fetch(`http://localhost:5678/api/works/${id}`, {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': "application/json",
-            'Authorization': `Bearer ${tokenValue}`
+    genererTableauModal();
+    const deleteWork = async (id) => {
+        console.log(id);
+        const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': "application/json",
+                'Authorization': `Bearer ${tokenValue}`
+            }
+        });
+        if (response.ok) {
+            console.log('Supprimé');
+            console.log(travaux);
+            console.log(id);
+            const index = travaux.findIndex(t=>t.id===id)
+            if(index !== -1){
+                travaux.splice(index,1)
+            }
+            console.log(travaux)
+            genererTableau()
+            genererTableauModal()
+        } else {
+            console.error(`HTTP error! Status: ${response.status}`);
         }
-    });
-    if (response.ok) {
-        console.log('Supprimé');
-    } else {
-        console.error(`HTTP error! Status: ${response.status}`);
-    }
-};
+    };
+}
 
 const closeModal = function (e) {
     if (modal === null) return

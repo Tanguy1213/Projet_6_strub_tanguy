@@ -629,6 +629,5 @@ hr {
 	outline: 3px solid rgb(83, 83, 216);
 }
 .highlighted-red {
-	outline: 3px solid red;
-	filter: brightness(50%);
+	opacity: 45%;
 }
