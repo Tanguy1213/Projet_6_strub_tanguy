@@ -1,6 +1,7 @@
 
 const gallery = document.getElementById('gallery');
 const modalGallery = document.getElementById('modalGallery');
+const modalWrapper2 = document.querySelector('.modal-wrapper2');
 let elementsOriginaux = [];
 let tokenValue = localStorage.token;
 let travaux = [];
@@ -9,7 +10,7 @@ let travaux = [];
 fetch('http://localhost:5678/api/works')
     .then(response => response.json())
     .then(data => {
-        travaux=data;
+        travaux = data;
         genererTableau();
     })
 
@@ -154,22 +155,20 @@ loginElement.addEventListener('click', () => {
 
 //MODAL
 let modal = null
-const focusableSelector = 'button, a, input, textarea'
-let focusables = []
-let previouslyFocusElement = null
+let modal2 = null
 
 const openModal = function (e) {
     e.preventDefault()
+
     modal = document.querySelector(e.target.getAttribute('href'))
-    focusables = Array.from(modal.querySelectorAll(focusableSelector))
-    previouslyFocusElement = document.querySelector(':focus')
-    modal.style.display = null
-    focusables[0].focus()
-    modal.removeAttribute('aria-hidden')
+    modal.style.display = null;
+    modal.setAttribute('aria-hidden', 'false')
     modal.setAttribute('aria-modal', 'true')
     modal.addEventListener('click', closeModal)
     modal.querySelector('.js-close-modal').addEventListener('click', closeModal)
     modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
+    modal.querySelector('.js-open-modal2').addEventListener('click', openModal2)
+
 
     function genererTableauModal() {
         // Vider la galerie actuelle
@@ -226,13 +225,13 @@ const openModal = function (e) {
                 imgElement.classList.remove('highlighted-red');
             });
 
-            
+
             buttonContainer.appendChild(moveButton);
             moveButton.appendChild(moveIcon);
 
             buttonContainer.appendChild(trashButton);
             trashButton.appendChild(trashIcon);
-            
+
             // Ajout de l'img, le container de boutons et la caption à l'élément figure
             figureElement.appendChild(imgElement);
             figureElement.appendChild(buttonContainer);
@@ -240,11 +239,12 @@ const openModal = function (e) {
 
             // Ajout de l'élément figure à la galerie
             modalGallery.appendChild(figureElement);
-            
-            //Suppression de la database au clique sur la poubelle
+
+            //Suppression de l'élément de la database au clique sur la poubelle
             trashButton.addEventListener('click', function () {
                 deleteWork(works.id)
             });
+
         });
     }
     genererTableauModal();
@@ -261,9 +261,9 @@ const openModal = function (e) {
             console.log('Supprimé');
             console.log(travaux);
             console.log(id);
-            const index = travaux.findIndex(t=>t.id===id)
-            if(index !== -1){
-                travaux.splice(index,1)
+            const index = travaux.findIndex(t => t.id === id)
+            if (index !== -1) {
+                travaux.splice(index, 1)
             }
             console.log(travaux)
             genererTableau()
@@ -274,11 +274,54 @@ const openModal = function (e) {
     };
 }
 
+const openModal2 = function (e) {
+    e.preventDefault()
+    /* hidding modal1*/
+    modal.style.display = "none";
+    modal.setAttribute('aria-hidden', 'true')
+    modal.setAttribute('aria-modal', 'false')
+
+    /*Showing modal2 */
+    modal2 = document.querySelector(e.target.getAttribute('href'))
+    modal2.style.display = null;
+    modal2.setAttribute('aria-hidden', 'false')
+    modal2.setAttribute('aria-modal', 'true')
+    modal2.addEventListener('click', closeModal2)
+    modal2.querySelector('.js-close-modal').addEventListener('click', closeModal2)
+    modal2.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
+
+    function genererModal2Content() {
+        /*TODO contenu de la modal 2*/
+        arrowLeft = document.querySelector('.arrowLeft');
+        arrowLeft.addEventListener('click', function () {
+            modal2.style.display = "none";
+            modal2.setAttribute('aria-hidden', 'true')
+            modal2.setAttribute('aria-modal', 'false')
+
+            modal.style.display = null;
+            modal.setAttribute('aria-hidden', 'false')
+            modal.setAttribute('aria-modal', 'true')
+        })
+    }
+    genererModal2Content();
+}
+/*const openModal2 = function (e) {
+    e.preventDefault();
+    modalWrapper.innerHTML = '';
+
+    const arrowLeft = document.createElement('button');
+    const arrowLeftIcon = document.createElement('img');
+    arrowLeft.classList.add('js-arrowLeft');
+
+    arrowLeftIcon.src = "./assets/icons/VectorArrowLeft.svg";
+    arrowLeftIcon.className = "arrowLeft";
+
+    arrowLeft.appendChild(arrowLeftIcon);
+    modalWrapper.appendChild(arrowLeft);
+}*/
+
 const closeModal = function (e) {
     if (modal === null) return
-    if (previouslyFocusElement != null) {
-        previouslyFocusElement.focus()
-    }
     e.preventDefault()
     window.setTimeout(function () {
         modal.style.display = "none"
@@ -290,6 +333,19 @@ const closeModal = function (e) {
     modal.querySelector('.js-close-modal').removeEventListener('click', closeModal)
     modal.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation)
 }
+const closeModal2 = function (e) {
+    if (modal2 === null) return
+    e.preventDefault()
+    window.setTimeout(function () {
+        modal2.style.display = "none"
+        modal2 = null
+    }, 500)
+    modal2.setAttribute('aria-hidden', 'true')
+    modal2.removeAttribute('aria-modal')
+    modal2.removeEventListener('click', closeModal2)
+    modal2.querySelector('.js-close-modal').removeEventListener('click', closeModal2)
+    modal2.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation)
+}
 
 const stopPropagation = function (e) {
     e.stopPropagation()
@@ -299,28 +355,10 @@ document.querySelectorAll('.js-modal').forEach(a => {
     a.addEventListener('click', openModal)
 })
 
-const focusInModal = function (e) {
-    e.preventDefault()
-    let index = focusables.findIndex(f => f === modal.querySelector(':focus'))
-    if (e.shiftKey === true) {
-        index--
-    } else {
-        index++
-    }
-    if (index >= focusables.lenght) {
-        index = 0;
-    }
-    if (index < 0) {
-        index = focusables.lenght - 1
-    }
-    focusables[index].focus()
-}
 
 window.addEventListener('keydown', function (e) {
     if (e.key === "Escape" || e.key === "Esc") {
         closeModal(e)
-    }
-    if (e.key === 'Tab' && modal !== null) {
-        focusInModal(e)
+        closeModal2(e)
     }
 })
