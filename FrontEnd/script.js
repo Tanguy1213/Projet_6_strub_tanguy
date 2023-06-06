@@ -347,6 +347,123 @@ const closeModal2 = function (e) {
     modal2.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation)
 }
 
+
+/*Gestion du formulaire d'ajout d'image dans la modal*/
+const form = document.getElementById("formChoix");
+const sendButton = document.getElementById("send");
+const categoryError = document.getElementById("category-error");
+const fileInput = document.getElementById("file");
+const imageIcon = document.getElementById("image-icon");
+const fileImgDiv = document.getElementById("fileImg");
+
+
+async function addWork() {
+    // Récupérer les valeurs des champs du formulaire
+    var image = document.getElementById('file').files[0];
+    var title = document.getElementById('titre').value;
+    let choix = document.getElementById('choix');
+    console.log(choix);
+    var category = 1;
+
+    // Créer un objet FormData pour envoyer les données du formulaire
+    var formData = new FormData();
+    formData.append('image', image);
+    formData.append('title', title);
+    formData.append('category', category);
+
+    try {
+        // Effectuer la requête POST vers notre API
+        const response = await fetch('http://localhost:5678/api/works', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${tokenValue}`
+            },
+            body: formData
+        });
+
+        console.log('Réponse de l\'API:', response);
+        console.log('path :', image);
+        console.log('titre :', title);
+        console.log('catégorie :', category);
+    } catch (error) {
+        console.error('Erreur lors de la requête:', error);
+    }
+}
+fileInput.addEventListener("change", function (event) {
+    const file = event.target.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+
+        reader.addEventListener("load", function () {
+            const imageUrl = reader.result;
+            const imageElement = document.createElement("img");
+            imageElement.setAttribute('id', 'fileUploaded');
+            imageElement.src = imageUrl;
+            imageElement.alt = "Prévisualisation de l'image";
+            imageElement.style.height = "230px";
+            imageElement.style.objectFit = "contain";
+            fileImgDiv.style.padding = "0";
+
+            // Supprimer tous les éléments enfants de fileImgDiv sauf l'input
+            var childNodes = fileImgDiv.childNodes;
+            for (var i = childNodes.length - 1; i >= 0; i--) {
+                var childNode = childNodes[i];
+                if (childNode !== fileInput) {
+                    fileImgDiv.removeChild(childNode);
+                }
+            }
+            // Ajouter l'image à fileImgDiv
+            fileImgDiv.appendChild(imageElement);
+        });
+
+        reader.readAsDataURL(file);
+    } else {
+        // Réinitialiser fileImgDiv en supprimant tous les éléments enfants sauf l'input
+        var childNodes = fileImgDiv.childNodes;
+        for (var i = childNodes.length - 1; i >= 0; i--) {
+            var childNode = childNodes[i];
+            if (childNode !== fileInput) {
+                fileImgDiv.removeChild(childNode);
+            }
+        }
+
+        fileImgDiv.appendChild(imageIcon); // Réajouter l'icône de l'image
+    }
+});
+
+form.addEventListener("submit", function (event) {
+    event.preventDefault(); // Empêche l'envoi du formulaire par défaut
+    toggleErrorAndButton();
+
+    if (sendButton.classList.contains("enabled")) {
+
+        addWork();
+        closeModal2(event);// Soumet le formulaire et fermer la modal
+    }
+});
+
+form.addEventListener("input", function () {
+    toggleErrorAndButton();
+});
+
+function toggleErrorAndButton() {
+    const titreInput = document.getElementById("titre");
+    const categorieSelect = document.getElementById("choix");
+
+    if (titreInput.value !== "" && categorieSelect.value !== "vide" && fileInput.files.length > 0) {
+        categoryError.style.display = "none";
+        sendButton.removeAttribute("disabled");
+        sendButton.classList.remove("disabled");
+        sendButton.classList.add("enabled");
+    } else {
+        categoryError.style.display = "block";
+        sendButton.setAttribute("disabled", "true");
+        sendButton.classList.remove("enabled");
+        sendButton.classList.add("disabled");
+    }
+}
+
 const stopPropagation = function (e) {
     e.stopPropagation()
 }

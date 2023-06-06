@@ -644,7 +644,7 @@ hr {
 
 /*Modal2*/
 #modal2 .modal-wrapper2 {
-	height: 670px;
+	height: fit-content;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -657,7 +657,8 @@ hr {
 	border: none;
 	background: transparent;
 }
-#modal2 .arrowLeft:hover{
+
+#modal2 .arrowLeft:hover {
 	transform: scale(1.15);
 }
 
@@ -701,9 +702,6 @@ hr {
 	align-items: center;
 }
 
-#modal2 #fileImg #preview img {
-	width: 200px;
-}
 
 #modal2 #fileImg p {
 	font-family: "Work Sans";
@@ -720,8 +718,9 @@ hr {
 	flex-direction: column;
 }
 
-#modal2 #formChoix #form-forget {
+#modal2 #formChoix #category-error {
 	display: none;
+	color: red;
 }
 
 #modal2 hr {
@@ -748,7 +747,17 @@ hr {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
 
+#send.enabled {
+	/* styles pour le bouton activable */
+	background-color: #4CAF50;
+	/* Autres styles de votre choix */
+}
+
+.hidden {
+	display: none;
+	visibility: hidden;
 }
 
 #modal2 .arrowLeft,

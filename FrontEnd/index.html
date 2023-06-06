@@ -70,38 +70,34 @@
 					</div>
 				</aside>
 
-				<aside id="modal2" class="modal" aria-hidden="true" role="" aria-modal="false"
-					aria-labelledby="titlemodal" style="display:none">
+				<aside id="modal2" class="modal" aria-hidden="true" role="" aria-modal="false" style="display:none">
 					<div class="js-modal-stop modal-wrapper2">
-						<button class="js-close-modal"><i class="fa-solid fa-xmark"></i></button>
-						<button  class="arrowLeft"><img src="./assets/icons/VectorArrowLeft.svg" alt="flèche direction"></button>
-						<h3 id="titleModal">Ajout photo</h3>
-
-						<form action="#" method="post" id="formChoix">
-							<div id="fileImg">
-								<i class="fa-regular fa-image"></i>
-								<div id="preview"></div>
-								<label for="file" id="addFile"> + Ajouter photo</label>
-								<input type="file" id="file" name="file" accept="image/*">
-								<p>jpg, png : 4mo max</p>
-							</div>
-							<label for="titre">Titre</label>
-							<input type="text" name="Titre" id="titre" required>
-							<label for="choix">Catégorie</label>
-							<select name="categorie" id="choix" form="formChoix" required>
-								<option value="vide">- Séléctionner une catégorie -</option>
-								<option value="objet">Objets</option>
-								<option value="appartement">Appartements</option>
-								<option value="h&r">Hotel & restaurants</option>
-							</select>
-							<p id="form-forget">Tous les champs doivent être remplis</p>
-							<hr>
-							<input type="submit" value="Valider" id="send">
-						</form>
-
+					  <button class="js-close-modal"><i class="fa-solid fa-xmark"></i></button>
+					  <button class="arrowLeft"><img src="./assets/icons/VectorArrowLeft.svg" alt="flèche direction"></button>
+					  <h3 id="titleModal">Ajout photo</h3>
+				  
+					  <form action="#" method="post" id="formChoix">
+						<div id="fileImg">
+						  <i class="fa-regular fa-image" id="image-icon"></i>
+						  <label for="file" id="addFile">+ Ajouter photo</label>
+						  <input type="file" id="file" name="file" accept="image/*" required>
+						  <p>jpg, png : 4mo max</p>
+						</div>
+						<label for="titre">Titre</label>
+						<input type="text" name="Titre" id="titre" required>
+						<label for="choix">Catégorie</label>
+						<select name="categorie" id="choix" form="formChoix" required>
+						  <option value="vide">- Sélectionner une catégorie -</option>
+						  <option value="objet">Objets</option>
+						  <option value="appartement">Appartements</option>
+						  <option value="h&r">Hotel &amp; restaurants</option>
+						</select>
+						<p id="category-error">Veuillez remplir tous les champs</p>
+						<hr>
+						<input type="submit" value="Valider" id="send">
+					  </form>
 					</div>
-			</div>
-			</aside>
+				  </aside>
 			</div>
 			<div class="filtres">
 				<button class="btn-filtre-tous btn-filtre" onclick="changeColor(this)">Tous</button>
