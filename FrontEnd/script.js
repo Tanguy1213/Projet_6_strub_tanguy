@@ -357,13 +357,22 @@ const imageIcon = document.getElementById("image-icon");
 const fileImgDiv = document.getElementById("fileImg");
 
 
-async function addWork() {
+async function addWork(id) {
     // Récupérer les valeurs des champs du formulaire
     var image = document.getElementById('file').files[0];
     var title = document.getElementById('titre').value;
-    let choix = document.getElementById('choix');
-    console.log(choix);
-    var category = 1;
+    var categorySelect = document.getElementById('choix');
+    var selectedOption = categorySelect.value;
+    var category;
+
+    // Mapper les options sélectionnées aux valeurs de catégorie souhaitées
+    if (selectedOption === "objet") {
+        category = 1;
+    } else if (selectedOption === "appartement") {
+        category = 2;
+    } else if (selectedOption === "h&r") {
+        category = 3;
+    }
 
     // Créer un objet FormData pour envoyer les données du formulaire
     var formData = new FormData();
@@ -381,14 +390,22 @@ async function addWork() {
             body: formData
         });
 
+        const index = travaux.findIndex(t => t.id === id)
+        if (index !== -1) {
+            travaux.push(index, 1)
+        }
+        console.log(travaux)
         console.log('Réponse de l\'API:', response);
         console.log('path :', image);
         console.log('titre :', title);
         console.log('catégorie :', category);
+
     } catch (error) {
         console.error('Erreur lors de la requête:', error);
     }
+    
 }
+
 fileInput.addEventListener("change", function (event) {
     const file = event.target.files[0];
 
@@ -439,7 +456,8 @@ form.addEventListener("submit", function (event) {
     if (sendButton.classList.contains("enabled")) {
 
         addWork();
-        closeModal2(event);// Soumet le formulaire et fermer la modal
+        closeModal2(event);/// Soumet le formulaire et fermer la modal
+        genererTableau();
     }
 });
 
