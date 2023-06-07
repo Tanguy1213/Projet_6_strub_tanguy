@@ -290,36 +290,22 @@ const openModal2 = function (e) {
     modal2.querySelector('.js-close-modal').addEventListener('click', closeModal2)
     modal2.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
 
-    function genererModal2Content() {
-        /*TODO contenu de la modal 2*/
-        arrowLeft = document.querySelector('.arrowLeft');
-        arrowLeft.addEventListener('click', function () {
-            modal2.style.display = "none";
-            modal2.setAttribute('aria-hidden', 'true')
-            modal2.setAttribute('aria-modal', 'false')
-
-            modal.style.display = null;
-            modal.setAttribute('aria-hidden', 'false')
-            modal.setAttribute('aria-modal', 'true')
-        })
-    }
-    genererModal2Content();
+    setModal2Visible();
 }
-/*const openModal2 = function (e) {
-    e.preventDefault();
-    modalWrapper.innerHTML = '';
 
-    const arrowLeft = document.createElement('button');
-    const arrowLeftIcon = document.createElement('img');
-    arrowLeft.classList.add('js-arrowLeft');
+function setModal2Visible() {
+    /*TODO contenu de la modal 2*/
+    arrowLeft = document.querySelector('.arrowLeft');
+    arrowLeft.addEventListener('click', function () {
+        modal2.style.display = "none";
+        modal2.setAttribute('aria-hidden', 'true')
+        modal2.setAttribute('aria-modal', 'false')
 
-    arrowLeftIcon.src = "./assets/icons/VectorArrowLeft.svg";
-    arrowLeftIcon.className = "arrowLeft";
-
-    arrowLeft.appendChild(arrowLeftIcon);
-    modalWrapper.appendChild(arrowLeft);
-}*/
-
+        modal.style.display = null;
+        modal.setAttribute('aria-hidden', 'false')
+        modal.setAttribute('aria-modal', 'true')
+    })
+}
 const closeModal = function (e) {
     if (modal === null) return
     e.preventDefault()
@@ -349,7 +335,7 @@ const closeModal2 = function (e) {
 
 
 /*Gestion du formulaire d'ajout d'image dans la modal*/
-const form = document.getElementById("formChoix");
+var form = document.getElementById("formChoix");
 const sendButton = document.getElementById("send");
 const categoryError = document.getElementById("category-error");
 const fileInput = document.getElementById("file");
@@ -357,7 +343,7 @@ const imageIcon = document.getElementById("image-icon");
 const fileImgDiv = document.getElementById("fileImg");
 
 
-async function addWork(id) {
+async function addWork() {
     // Récupérer les valeurs des champs du formulaire
     var image = document.getElementById('file').files[0];
     var title = document.getElementById('titre').value;
@@ -390,11 +376,20 @@ async function addWork(id) {
             body: formData
         });
 
-        const index = travaux.findIndex(t => t.id === id)
-        if (index !== -1) {
-            travaux.push(index, 1)
-        }
-        console.log(travaux)
+        // Récupérer le nouvel élément créé à partir de la réponse de l'API
+        const newWork = await response.json();
+
+        // Ajouter le nouvel élément à la suite du tableau travaux
+        travaux.push(newWork);
+        genererTableau();
+
+        // Réinitialiser le formulaire
+        /*document.getElementById('file').value = '';
+        document.getElementById('titre').value = '';
+        document.getElementById('choix').value = "vide";*/
+        document.getElementById('formChoix').reset();
+
+        console.log(travaux);
         console.log('Réponse de l\'API:', response);
         console.log('path :', image);
         console.log('titre :', title);
@@ -403,8 +398,10 @@ async function addWork(id) {
     } catch (error) {
         console.error('Erreur lors de la requête:', error);
     }
-    
 }
+/*TODO, Changer la fonction pour que sa cache les éléments et affiche la preview et inversement*/
+
+
 
 fileInput.addEventListener("change", function (event) {
     const file = event.target.files[0];
@@ -454,10 +451,8 @@ form.addEventListener("submit", function (event) {
     toggleErrorAndButton();
 
     if (sendButton.classList.contains("enabled")) {
-
         addWork();
         closeModal2(event);/// Soumet le formulaire et fermer la modal
-        genererTableau();
     }
 });
 
