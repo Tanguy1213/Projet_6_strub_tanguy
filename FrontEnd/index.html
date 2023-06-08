@@ -78,10 +78,10 @@
 				  
 					  <form action="#" method="post" id="formChoix">
 						<div id="fileImg">
-						  <i class="fa-regular fa-image" id="image-icon"></i>
-						  <label for="file" id="addFile">+ Ajouter photo</label>
+						  <i class="fa-regular fa-image js-preview-hide" id="image-icon"></i>
+						  <label class="js-preview-hide" for="file" id="addFile">+ Ajouter photo</label>
 						  <input type="file" id="file" name="file" accept="image/*" required>
-						  <p>jpg, png : 4mo max</p>
+						  <p class="js-preview-hide" id="max-size">jpg, png : 4mo max</p>
 						</div>
 						<label for="titre">Titre</label>
 						<input type="text" name="Titre" id="titre" required>

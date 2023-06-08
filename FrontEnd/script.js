@@ -331,6 +331,16 @@ const closeModal2 = function (e) {
     modal2.removeEventListener('click', closeModal2)
     modal2.querySelector('.js-close-modal').removeEventListener('click', closeModal2)
     modal2.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation)
+
+    /*Reset la modal quand elle est supprimée */
+    document.getElementById('formChoix').reset();
+    toggleErrorAndButton();
+    for (var i = 0; i < elementToHide.length; i++) {
+        elementToHide[i].style.display = null;
+      }
+    var previewToDelete = document.getElementById('fileUploaded')
+    previewToDelete.remove();
+    fileImgDiv.style.padding = null;
 }
 
 
@@ -383,12 +393,6 @@ async function addWork() {
         travaux.push(newWork);
         genererTableau();
 
-        // Réinitialiser le formulaire
-        /*document.getElementById('file').value = '';
-        document.getElementById('titre').value = '';
-        document.getElementById('choix').value = "vide";*/
-        document.getElementById('formChoix').reset();
-
         console.log(travaux);
         console.log('Réponse de l\'API:', response);
         console.log('path :', image);
@@ -402,7 +406,7 @@ async function addWork() {
 /*TODO, Changer la fonction pour que sa cache les éléments et affiche la preview et inversement*/
 
 
-
+const elementToHide = document.getElementsByClassName('js-preview-hide');
 fileInput.addEventListener("change", function (event) {
     const file = event.target.files[0];
 
@@ -419,31 +423,18 @@ fileInput.addEventListener("change", function (event) {
             imageElement.style.objectFit = "contain";
             fileImgDiv.style.padding = "0";
 
-            // Supprimer tous les éléments enfants de fileImgDiv sauf l'input
-            var childNodes = fileImgDiv.childNodes;
-            for (var i = childNodes.length - 1; i >= 0; i--) {
-                var childNode = childNodes[i];
-                if (childNode !== fileInput) {
-                    fileImgDiv.removeChild(childNode);
-                }
-            }
+            // cacher les éléments lorsque l'utilisateur ajoute une photo
+            
+            for (var i = 0; i < elementToHide.length; i++) {
+                elementToHide[i].style.display = "none";
+              }
             // Ajouter l'image à fileImgDiv
             fileImgDiv.appendChild(imageElement);
         });
 
         reader.readAsDataURL(file);
-    } else {
-        // Réinitialiser fileImgDiv en supprimant tous les éléments enfants sauf l'input
-        var childNodes = fileImgDiv.childNodes;
-        for (var i = childNodes.length - 1; i >= 0; i--) {
-            var childNode = childNodes[i];
-            if (childNode !== fileInput) {
-                fileImgDiv.removeChild(childNode);
-            }
-        }
-
-        fileImgDiv.appendChild(imageIcon); // Réajouter l'icône de l'image
     }
+    /*Clear et réafficher les éléments */ 
 });
 
 form.addEventListener("submit", function (event) {
