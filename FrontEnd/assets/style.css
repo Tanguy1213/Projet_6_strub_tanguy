@@ -701,7 +701,11 @@ hr {
 	display: flex;
 	align-items: center;
 }
-
+#preview{
+	display: flex;
+	justify-content: center;
+	background-color:#E8F1F7 ;
+}
 
 #modal2 #fileImg p {
 	font-family: "Work Sans";

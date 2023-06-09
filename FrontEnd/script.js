@@ -11,10 +11,10 @@ fetch('http://localhost:5678/api/works')
     .then(response => response.json())
     .then(data => {
         travaux = data;
-        genererTableau();
+        genererGallerie();
     })
 
-function genererTableau() {
+function genererGallerie() {
     // Vider la galerie actuelle
     gallery.innerHTML = '';
 
@@ -75,7 +75,6 @@ function filtrerEtAfficherElements(categorieId) {
 const boutonTous = document.querySelector(".btn-filtre-tous");
 
 boutonTous.addEventListener("click", function () {
-    console.log("bouton affichant tout cliqué");
     filtrerEtAfficherElements('tous');
 });
 
@@ -83,7 +82,6 @@ boutonTous.addEventListener("click", function () {
 const boutonObjets = document.querySelector(".btn-filtre-objets");
 
 boutonObjets.addEventListener("click", function () {
-    console.log("bouton affichant les objets cliqué");
     const categorieId = '1';
     filtrerEtAfficherElements(categorieId);
 });
@@ -92,7 +90,6 @@ boutonObjets.addEventListener("click", function () {
 const boutonAppartements = document.querySelector(".btn-filtre-appartements");
 
 boutonAppartements.addEventListener("click", function () {
-    console.log("bouton affichant les appartements cliqué");
     const categorieId = '2';
     filtrerEtAfficherElements(categorieId);
 });
@@ -101,7 +98,6 @@ boutonAppartements.addEventListener("click", function () {
 const boutonHotel = document.querySelector(".btn-filtre-hoteletrestaurants");
 
 boutonHotel.addEventListener("click", function () {
-    console.log("bouton affichant les hôtels et restaurants cliqué");
     const categorieId = '3';
     filtrerEtAfficherElements(categorieId);
 });
@@ -157,20 +153,19 @@ loginElement.addEventListener('click', () => {
 let modal = null
 let modal2 = null
 
-const openModal = function (e) {
+//MODAL1
+const showModal1 = function (e) {
     e.preventDefault()
-
     modal = document.querySelector(e.target.getAttribute('href'))
     modal.style.display = null;
     modal.setAttribute('aria-hidden', 'false')
     modal.setAttribute('aria-modal', 'true')
-    modal.addEventListener('click', closeModal)
-    modal.querySelector('.js-close-modal').addEventListener('click', closeModal)
+    modal.addEventListener('click', hideModal)
+    modal.querySelector('.js-close-modal').addEventListener('click', hideModal)
     modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
-    modal.querySelector('.js-open-modal2').addEventListener('click', openModal2)
+    modal.querySelector('.js-open-modal2').addEventListener('click', showModal2)
 
-
-    function genererTableauModal() {
+    function genererGallerieModal() {
         // Vider la galerie actuelle
         modalGallery.innerHTML = '';
 
@@ -247,9 +242,8 @@ const openModal = function (e) {
 
         });
     }
-    genererTableauModal();
+    genererGallerieModal();
     const deleteWork = async (id) => {
-        console.log(id);
         const response = await fetch(`http://localhost:5678/api/works/${id}`, {
             method: 'DELETE',
             headers: {
@@ -258,23 +252,19 @@ const openModal = function (e) {
             }
         });
         if (response.ok) {
-            console.log('Supprimé');
-            console.log(travaux);
-            console.log(id);
             const index = travaux.findIndex(t => t.id === id)
             if (index !== -1) {
                 travaux.splice(index, 1)
             }
-            console.log(travaux)
-            genererTableau()
-            genererTableauModal()
+            genererGallerie()
+            genererGallerieModal()
         } else {
             console.error(`HTTP error! Status: ${response.status}`);
         }
     };
 }
-
-const openModal2 = function (e) {
+//MODAL 2
+const showModal2 = function (e) {
     e.preventDefault()
     /* hidding modal1*/
     modal.style.display = "none";
@@ -286,27 +276,24 @@ const openModal2 = function (e) {
     modal2.style.display = null;
     modal2.setAttribute('aria-hidden', 'false')
     modal2.setAttribute('aria-modal', 'true')
-    modal2.addEventListener('click', closeModal2)
-    modal2.querySelector('.js-close-modal').addEventListener('click', closeModal2)
+    modal2.addEventListener('click', hideModal2)
+    modal2.querySelector('.js-close-modal').addEventListener('click', hideModal2)
     modal2.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
-
-    setModal2Visible();
+    returnToModal1();
 }
 
-function setModal2Visible() {
-    /*TODO contenu de la modal 2*/
+function returnToModal1() {
     arrowLeft = document.querySelector('.arrowLeft');
     arrowLeft.addEventListener('click', function () {
         modal2.style.display = "none";
         modal2.setAttribute('aria-hidden', 'true')
         modal2.setAttribute('aria-modal', 'false')
-
         modal.style.display = null;
         modal.setAttribute('aria-hidden', 'false')
         modal.setAttribute('aria-modal', 'true')
     })
 }
-const closeModal = function (e) {
+const hideModal = function (e) {
     if (modal === null) return
     e.preventDefault()
     window.setTimeout(function () {
@@ -315,11 +302,8 @@ const closeModal = function (e) {
     }, 500)
     modal.setAttribute('aria-hidden', 'true')
     modal.removeAttribute('aria-modal')
-    modal.removeEventListener('click', closeModal)
-    modal.querySelector('.js-close-modal').removeEventListener('click', closeModal)
-    modal.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation)
 }
-const closeModal2 = function (e) {
+const hideModal2 = function (e) {
     if (modal2 === null) return
     e.preventDefault()
     window.setTimeout(function () {
@@ -328,19 +312,15 @@ const closeModal2 = function (e) {
     }, 500)
     modal2.setAttribute('aria-hidden', 'true')
     modal2.removeAttribute('aria-modal')
-    modal2.removeEventListener('click', closeModal2)
-    modal2.querySelector('.js-close-modal').removeEventListener('click', closeModal2)
-    modal2.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation)
 
-    /*Reset la modal quand elle est supprimée */
+    /*Reset de la modal2, de son formulaire et effacement de la preview,  */
     document.getElementById('formChoix').reset();
     toggleErrorAndButton();
-    for (var i = 0; i < elementToHide.length; i++) {
-        elementToHide[i].style.display = null;
-      }
+    fileImgDiv.style.display = null;
     var previewToDelete = document.getElementById('fileUploaded')
-    previewToDelete.remove();
-    fileImgDiv.style.padding = null;
+    if (previewToDelete != null) { //Si une image est dans la preview -> delete
+        previewToDelete.remove();
+    }
 }
 
 
@@ -351,6 +331,7 @@ const categoryError = document.getElementById("category-error");
 const fileInput = document.getElementById("file");
 const imageIcon = document.getElementById("image-icon");
 const fileImgDiv = document.getElementById("fileImg");
+const previewImg = document.getElementById('preview');
 
 
 async function addWork() {
@@ -358,17 +339,7 @@ async function addWork() {
     var image = document.getElementById('file').files[0];
     var title = document.getElementById('titre').value;
     var categorySelect = document.getElementById('choix');
-    var selectedOption = categorySelect.value;
-    var category;
-
-    // Mapper les options sélectionnées aux valeurs de catégorie souhaitées
-    if (selectedOption === "objet") {
-        category = 1;
-    } else if (selectedOption === "appartement") {
-        category = 2;
-    } else if (selectedOption === "h&r") {
-        category = 3;
-    }
+    var category = categorySelect.value;
 
     // Créer un objet FormData pour envoyer les données du formulaire
     var formData = new FormData();
@@ -392,21 +363,13 @@ async function addWork() {
         // Ajouter le nouvel élément à la suite du tableau travaux
         travaux.push(newWork);
         genererTableau();
-
-        console.log(travaux);
         console.log('Réponse de l\'API:', response);
-        console.log('path :', image);
-        console.log('titre :', title);
-        console.log('catégorie :', category);
 
     } catch (error) {
         console.error('Erreur lors de la requête:', error);
     }
 }
-/*TODO, Changer la fonction pour que sa cache les éléments et affiche la preview et inversement*/
 
-
-const elementToHide = document.getElementsByClassName('js-preview-hide');
 fileInput.addEventListener("change", function (event) {
     const file = event.target.files[0];
 
@@ -421,20 +384,14 @@ fileInput.addEventListener("change", function (event) {
             imageElement.alt = "Prévisualisation de l'image";
             imageElement.style.height = "230px";
             imageElement.style.objectFit = "contain";
-            fileImgDiv.style.padding = "0";
 
             // cacher les éléments lorsque l'utilisateur ajoute une photo
-            
-            for (var i = 0; i < elementToHide.length; i++) {
-                elementToHide[i].style.display = "none";
-              }
-            // Ajouter l'image à fileImgDiv
-            fileImgDiv.appendChild(imageElement);
+            fileImgDiv.style.display = "none";
+            // Ajouter l'image à la preview
+            previewImg.appendChild(imageElement);
         });
-
         reader.readAsDataURL(file);
     }
-    /*Clear et réafficher les éléments */ 
 });
 
 form.addEventListener("submit", function (event) {
@@ -443,7 +400,9 @@ form.addEventListener("submit", function (event) {
 
     if (sendButton.classList.contains("enabled")) {
         addWork();
-        closeModal2(event);/// Soumet le formulaire et fermer la modal
+        hideModal2(event);/// Soumet le formulaire et fermer la modal
+    } else {
+        toggleErrorAndButton();
     }
 });
 
@@ -473,13 +432,12 @@ const stopPropagation = function (e) {
 }
 
 document.querySelectorAll('.js-modal').forEach(a => {
-    a.addEventListener('click', openModal)
+    a.addEventListener('click', showModal1)
 })
-
 
 window.addEventListener('keydown', function (e) {
     if (e.key === "Escape" || e.key === "Esc") {
-        closeModal(e)
-        closeModal2(e)
+        hideModal(e)
+        hideModal2(e)
     }
 })
