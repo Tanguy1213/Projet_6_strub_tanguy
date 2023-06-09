@@ -362,7 +362,7 @@ async function addWork() {
 
         // Ajouter le nouvel élément à la suite du tableau travaux
         travaux.push(newWork);
-        genererTableau();
+        genererGallerie();
         console.log('Réponse de l\'API:', response);
 
     } catch (error) {
