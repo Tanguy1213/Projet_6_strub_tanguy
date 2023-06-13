@@ -1,7 +1,6 @@
 
 const gallery = document.getElementById('gallery');
 const modalGallery = document.getElementById('modalGallery');
-const modalWrapper2 = document.querySelector('.modal-wrapper2');
 let elementsOriginaux = [];
 let tokenValue = localStorage.token;
 let travaux = [];
