@@ -140,13 +140,17 @@ table {
 
 /** end reset css**/
 body {
-	max-width: 1140px;
 	margin: auto;
 	font-family: 'Work Sans';
 	font-size: 14px;
 	background-color: #FFFEF8;
 }
-
+header,
+main,
+footer{
+	max-width: 1140px;
+	margin: auto;
+}
 header section {
 	display: flex;
 	justify-content: space-between;
@@ -241,7 +245,6 @@ li:hover {
 	justify-content: center;
 	align-items: center;
 	height: fit-content;
-	margin-bottom: 3rem;
 	gap: 31px;
 }
 
@@ -250,6 +253,7 @@ li:hover {
 	justify-content: center;
 	gap: 1em;
 	margin-bottom: 2em;
+	margin-top: 3rem;
 }
 
 .btn-filtre {
@@ -394,6 +398,7 @@ footer nav ul {
 	justify-content: center;
 	align-items: center;
 	gap: 20px;
+	
 }
 
 #loginBanner a {
@@ -751,13 +756,14 @@ hr {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	cursor:not-allowed;
 }
 
 #send.enabled {
-	/* styles pour le bouton activable */
 	background-color: #4CAF50;
-	/* Autres styles de votre choix */
+	cursor: pointer;
 }
+
 
 .hidden {
 	display: none;
@@ -765,7 +771,6 @@ hr {
 }
 
 #modal2 .arrowLeft,
-#send,
 label#addFile {
 	cursor: pointer;
 }

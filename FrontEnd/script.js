@@ -114,20 +114,19 @@ function changeColor(btn) {
 const loginElement = document.getElementById('logout');
 const editBanner = document.getElementById('loginBanner');
 const btnModif = document.getElementsByClassName('btn-modifier');
-const btnFiltres = document.getElementsByClassName('btn-filtre');
+const filters = document.getElementById('filtres');
 
 if (localStorage.getItem('token')) {
     loginElement.textContent = 'logout';
     editBanner.style.display = 'flex';
+
     // Afficher les boutons de modification
     for (var i = 0; i < btnModif.length; i++) {
         btnModif[i].style.display = 'inline-block';
     }
     // Supprimer les filtres si connecté
-    while (btnFiltres.length > 0) {
-        btnFiltres[0].parentNode.removeChild(btnFiltres[0]);
-    }
-
+    filters.style.display = 'none'
+    gallery.style.marginTop = '2em'
 } else {
     loginElement.textContent = 'login';
     editBanner.style.display = 'none';
@@ -301,6 +300,7 @@ const hideModal = function (e) {
     }, 500)
     modal.setAttribute('aria-hidden', 'true')
     modal.removeAttribute('aria-modal')
+    hideModal2(e);
 }
 const hideModal2 = function (e) {
     if (modal2 === null) return
