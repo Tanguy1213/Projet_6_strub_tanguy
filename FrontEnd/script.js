@@ -322,7 +322,6 @@ const hideModal2 = function (e) {
     }
 }
 
-
 /*Gestion du formulaire d'ajout d'image dans la modal*/
 var form = document.getElementById("formChoix");
 const sendButton = document.getElementById("send");

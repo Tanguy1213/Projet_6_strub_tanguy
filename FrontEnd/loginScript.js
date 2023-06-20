@@ -8,6 +8,8 @@ function showPassWord() {
   }
 }
 
+document.getElementById('showMdp').addEventListener('click',showPassWord);
+
 //Script permettant le login et logout de l'utilisateur
 document.getElementById('btn-submit').addEventListener('click', function (event) {
   event.preventDefault();
