@@ -14,6 +14,7 @@ fetch('http://localhost:5678/api/works')
     })
 
 function genererGallerie() {
+
     // Vider la galerie actuelle
     gallery.innerHTML = '';
 
@@ -72,14 +73,12 @@ function filtrerEtAfficherElements(categorieId) {
 
 // Bouton filtres tous
 const boutonTous = document.querySelector(".btn-filtre-tous");
-
 boutonTous.addEventListener("click", function () {
     filtrerEtAfficherElements('tous');
 });
 
 // Bouton filtre objets
 const boutonObjets = document.querySelector(".btn-filtre-objets");
-
 boutonObjets.addEventListener("click", function () {
     const categorieId = '1';
     filtrerEtAfficherElements(categorieId);
@@ -87,7 +86,6 @@ boutonObjets.addEventListener("click", function () {
 
 // Bouton filtre appartements
 const boutonAppartements = document.querySelector(".btn-filtre-appartements");
-
 boutonAppartements.addEventListener("click", function () {
     const categorieId = '2';
     filtrerEtAfficherElements(categorieId);
@@ -95,7 +93,6 @@ boutonAppartements.addEventListener("click", function () {
 
 // Bouton filtres hotels et restaurants
 const boutonHotel = document.querySelector(".btn-filtre-hoteletrestaurants");
-
 boutonHotel.addEventListener("click", function () {
     const categorieId = '3';
     filtrerEtAfficherElements(categorieId);
@@ -338,13 +335,12 @@ async function addWork() {
     var title = document.getElementById('titre').value;
     var categorySelect = document.getElementById('choix');
     var category = categorySelect.value;
-
+    
     // Créer un objet FormData pour envoyer les données du formulaire
     var formData = new FormData();
     formData.append('image', image);
     formData.append('title', title);
     formData.append('category', category);
-
     try {
         // Effectuer la requête POST vers notre API
         const response = await fetch('http://localhost:5678/api/works', {
@@ -354,15 +350,12 @@ async function addWork() {
             },
             body: formData
         });
-
         // Récupérer le nouvel élément créé à partir de la réponse de l'API
         const newWork = await response.json();
-
         // Ajouter le nouvel élément à la suite du tableau travaux
         travaux.push(newWork);
         genererGallerie();
         console.log('Réponse de l\'API:', response);
-
     } catch (error) {
         console.error('Erreur lors de la requête:', error);
     }
@@ -373,7 +366,6 @@ fileInput.addEventListener("change", function (event) {
 
     if (file) {
         const reader = new FileReader();
-
         reader.addEventListener("load", function () {
             const imageUrl = reader.result;
             const imageElement = document.createElement("img");
@@ -411,7 +403,6 @@ form.addEventListener("input", function () {
 function toggleErrorAndButton() {
     const titreInput = document.getElementById("titre");
     const categorieSelect = document.getElementById("choix");
-
     if (titreInput.value !== "" && categorieSelect.value !== "vide" && fileInput.files.length > 0) {
         categoryError.style.display = "none";
         sendButton.removeAttribute("disabled");
