@@ -234,7 +234,6 @@ const showModal1 = function (e) {
             trashButton.addEventListener('click', function () {
                 deleteWork(works.id)
             });
-
         });
     }
     genererGallerieModal();
@@ -245,7 +244,7 @@ const showModal1 = function (e) {
                 'Content-Type': "application/json",
                 'Authorization': `Bearer ${tokenValue}`
             }
-        });
+        }).catch(error => console.error(`HTTP error! Status: ${error}`));
         if (response.ok) {
             const index = travaux.findIndex(t => t.id === id)
             if (index !== -1) {
